@@ -28,6 +28,7 @@ def process_row(row, data_dir, norm_path, abnormal_path, resize, task, synthetiz
         resized_image = cv2.resize(
             normalized_image, (resize, resize), interpolation=cv2.INTER_LINEAR
         )
+        resized_image = anisotropic_diffusion(resized_image)
         # If picture has anomalies and task is set to segmentation : Save the mask
         if not isNormal and task == 'segmentation':
             mask = np.zeros((resize, resize), dtype=np.uint8)
