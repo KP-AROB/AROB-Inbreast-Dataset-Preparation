@@ -54,7 +54,7 @@ def process_row(row, data_dir, norm_path, abnormal_path, resize, task, synthetiz
                     ),
                     mask,
                 )
-        save_path = os.path.join(folderPath, "{}.png".format(row["File name"])) if task == 'classification' else  os.path.join(folderPath, "images", "{}.png".format(row["File name"]))
+        save_path = os.path.join(folderPath, "{}.png".format(row["File name"])) if task != 'segmentation' else  os.path.join(folderPath, "images", "{}.png".format(row["File name"]))
         cv2.imwrite(
             save_path,
             resized_image,
@@ -62,7 +62,7 @@ def process_row(row, data_dir, norm_path, abnormal_path, resize, task, synthetiz
     except Exception as e:
         print(f"Failed to process row {row['File name']}: {e}")
 
-def prepare_inbreast(data_dir, out_dir, resize=256, task='classification', synthetize = False):
+def prepare_inbreast(data_dir, out_dir, resize=256, task='bi-rads-cls', synthetize = False):
 
     norm_path = os.path.join(out_dir, task, "norm")
     abnormal_path = os.path.join(out_dir, task, "abnorm")
